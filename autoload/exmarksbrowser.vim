@@ -163,8 +163,8 @@ function exmarksbrowser#confirm_select(modifier)
         call g:exmb_update_selectwindow ()
     endif
 
-    let winnum = bufwinnr(s:title)
-    call ex#window#operate( winnum, g:exmb_close_when_selected, g:exmb_backto_editbuf, 1 )
+    " let winnum = bufwinnr(s:title)
+    " call ex#window#operate( winnum, g:exmb_close_when_selected, g:exmb_backto_editbuf, 1 )
 
 endfunction
 
@@ -193,7 +193,9 @@ function s:exmb_selectcursormoved()
 
     if line_num == s:exmb_cursor_idx
         " call exUtility#HighlightSelectLine()
-        call ex#hl#select_line()
+        " call ex#hl#select_line()
+        let s:confirm_at = line('.')
+        call ex#hl#target_line(s:confirm_at)
         return
     endif
 
@@ -213,7 +215,9 @@ function s:exmb_selectcursormoved()
     endwhile
 
     let s:exmb_cursor_idx = line('.')
-    call ex#hl#select_line()
+    " call ex#hl#select_line()
+    let s:confirm_at = line('.')
+    call ex#hl#target_line(s:confirm_at)
 endfunction
 
 function s:exmb_fetchmarks() " <<<
