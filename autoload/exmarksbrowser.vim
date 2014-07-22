@@ -163,7 +163,6 @@ function exmarksbrowser#confirm_select(modifier)
         call g:exmb_update_selectwindow ()
     endif
 
-    "
     let winnum = bufwinnr(s:title)
     call ex#window#operate( winnum, g:exmb_close_when_selected, g:exmb_backto_editbuf, 1 )
 
@@ -218,28 +217,6 @@ function s:exmb_selectcursormoved()
 endfunction
 
 function s:exmb_fetchmarks() " <<<
-    " EXAMPLE: :marks command example { 
-    " mark line  col file/text
-    "  '    432    0 -invalid-
-    "  a    297   46 elseif did_buf_marks_sep == 0 && item[2] =~# '[a-z]'  
-    "  0    124   15 D:\exDev\vim\vimfiles\plugin\marksbrowser.vim
-    "  1   1648    1 D:\Project\Engine\nomad\main\code\Core\purs\Examples\LZOCompression\LZO_UnComp\MiniLZO\minilzo.c
-    "  2     18    0 D:\Project\Dev\exUtility\src\exLibs\exLibs.vimentry
-    "  3    369    4 D:\Project\Dev\exUtility\src\exLibs\exLibs\Container\BitArray.h
-    "  4     24    0 D:\Project\Dev\exUtility\src\exLibs\.vimfiles\symbol
-    "  5      1    0 D:\Project\Dev\exUtility\src\exLibs\.vimfiles\exLibs.exproject
-    "  6    156    4 D:\Project\Dev\exUtility\src\exLibs\exLibs\Container\HashMapPool.h
-    "  7     17    0 D:\Project\Dev\exUtility\src\exLibs\exLibs.vimentry
-    "  8     15    0 D:\Project\Dev\exUtility\src\exLibs\exLibs.vimentry
-    "  9     72    0 D:\Project\Dev\exUtility\src\exLibs\exLibs\GF\Debug.cpp
-    "  "    258    4 silent redir END
-    "  [      1    0 " ======================================================================================
-    "  ]    330    0 " vim: set foldmethod=marker foldmarker=<<<,>>> foldlevel=1:
-    "  ^    256   29 silent redir =>marks_list
-    "  .    256    0 silent redir =>marks_list
-    "  <    256    8 silent redir =>marks_list
-    "  >    256    8 silent redir =>marks_list
-    " } EXAMPLE end 
 
     call ex#window#goto_edit_window()
     silent redir =>marks_text
@@ -283,7 +260,6 @@ function s:exmb_fetchmarks() " <<<
         let string = strpart ( string, idx_start )
         let mark_info.text = strpart ( raw_string, idx_start )
 
-        "
         silent call add ( result_list, mark_info )
     endfor
 
@@ -373,7 +349,6 @@ function s:exmb_fill( results ) " <<<
             silent put ='-------------------- number marks --------------------'
         endif
 
-        "
         silent put = '\|'.item.name.'\| '.'('.item.line.','.item.col.'): '.item.text
     endfor
 
