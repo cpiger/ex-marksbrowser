@@ -60,7 +60,7 @@ command! EXmbOpen call  exmarksbrowser#open_window()
 command! EXmbClose call exmarksbrowser#close_window()
 
 " default key mappings {{{1
-call exmarksbrowser#register_hotkey( 1  , 1, '<F1>'            , ":call exmarksbrowser#toggle_help()<CR>"           , 'Toggle help.' )
+call exmarksbrowser#register_hotkey( 1  , 1, '?'            , ":call exmarksbrowser#toggle_help()<CR>"           , 'Toggle help.' )
 if has('gui_running')
     call exmarksbrowser#register_hotkey( 2  , 1, '<ESC>'           , ":EXmbClose<CR>"                         , 'Close window.' )
 else
