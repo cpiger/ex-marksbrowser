@@ -12,6 +12,18 @@ let s:help_text_short = [
             \ ]
 let s:help_text = s:help_text_short
 
+
+let s:help_text_showmarks= [
+            \'" for plugin showmarks',
+            \'" <leader>mt: ShowMarksToggle',
+            \'" <leader>mo: ShowMarksOn',
+            \'" <leader>mh: ShowMarksClearMark',
+            \'" <leader>mc: ShowMarksClearMark',
+            \'" <leader>ma: ShowMarksClearAll',
+            \'" <leader>mm: ShowMarksPlaceMark',
+            \ '',
+            \ ]
+
 function exmarksbrowser#bind_mappings()
     call ex#keymap#bind( s:keymap )
 endfunction
@@ -23,6 +35,7 @@ endfunction
 function s:update_help_text()
     if s:help_open
         let s:help_text = ex#keymap#helptext(s:keymap)
+        let s:help_text += s:help_text_showmarks
     else
         let s:help_text = s:help_text_short
     endif
@@ -33,12 +46,18 @@ function exmarksbrowser#toggle_help()
         return
     endif
 
+    silent! setlocal modifiable
+
     let s:help_open = !s:help_open
     silent exec '1,' . len(s:help_text) . 'd _'
     call s:update_help_text()
+
+
     silent call append ( 0, s:help_text )
     silent keepjumps normal! gg
     call ex#hl#clear_confirm()
+
+    silent! setlocal nomodifiable
 endfunction
 
 " exmarksbrowser#open_window {{{2
