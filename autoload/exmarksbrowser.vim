@@ -67,7 +67,7 @@ function exmarksbrowser#init_buffer()
 
     if line('$') <= 1 && g:ex_mb_enable_help
         silent call append ( 0, s:help_text )
-        silent exec '$d'
+        silent exec '$d _'
     endif
 endfunction
 
@@ -100,7 +100,7 @@ function exmarksbrowser#open_window()
         if s:confirm_at != -1
             call ex#hl#confirm_line(s:confirm_at)
         endif
-        call g:exmb_update_selectwindow ()
+        call g:Exmb_update_selectwindow ()
     else
         exe winnr . 'wincmd w'
     endif
@@ -179,11 +179,16 @@ function exmarksbrowser#confirm_select(modifier)
     " cause different files have different marks (those lower case marks), so we need to refresh mark browser
     if need_refresh_marks
         call ex#window#goto_plugin_window()
-        call g:exmb_update_selectwindow ()
+        call g:Exmb_update_selectwindow ()
     endif
 
     " let winnum = bufwinnr(s:title)
     " call ex#window#operate( winnum, g:exmb_close_when_selected, g:exmb_backto_editbuf, 1 )
+
+    " go back to mb window
+    exe 'normal! zz'
+    call ex#hl#target_line(line('.'))
+    call ex#window#goto_plugin_window()
 
 endfunction
 
@@ -195,7 +200,7 @@ let s:exmb_cursor_idx = 1
 let s:exmb_all_marks = "abcdefghijklmnopqrstuvwxyz.'`^<>\""
 "let s:exmb_all_marks = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.'`^<>\""
 
-function g:exmb_update_selectwindow() " <<<
+function g:Exmb_update_selectwindow() " <<<
     " we alwasy clear confirmed highlight, every time we open the browse window
     call ex#hl#clear_confirm()
 
@@ -320,7 +325,8 @@ function s:exmb_sortmarks( i1, i2 ) " <<<
     if type_order1 !=# type_order2
         return type_order1 ==# type_order2 ? 0 : type_order1 ># type_order2 ? 1 : -1
     else
-        return name1 ==# name2 ? 0 : name1 ># name2 ? 1 : -1
+        " return name1 ==# name2 ? 0 : name1 ># name2 ?  1 : -1
+        return name1 ==# name2 ? 0 : name1 ># name2 ? -1 : 1
     endif
 endfunction " >>>
 
@@ -334,7 +340,7 @@ function s:exmb_fill( results ) " <<<
     " add online help 
     if g:ex_mb_enable_help
         silent call append ( 0, s:help_text )
-        silent exec '$d'
+        silent exec '$d _'
         let start_line = len(s:help_text)
     else
         let start_line = 0
