@@ -60,15 +60,18 @@ command! EXmbOpen call  exmarksbrowser#open_window()
 command! EXmbClose call exmarksbrowser#close_window()
 
 " default key mappings {{{1
-call exmarksbrowser#register_hotkey( 1  , 1, '<F1>'            , ":call exmarksbrowser#toggle_help()<CR>"           , 'Toggle help.' )
+call exmarksbrowser#register_hotkey( 1  , 1, '?'            , ":call exmarksbrowser#toggle_help()<CR>"           , 'Toggle help.' )
 if has('gui_running')
     call exmarksbrowser#register_hotkey( 2  , 1, '<ESC>'           , ":EXmbClose<CR>"                         , 'Close window.' )
 else
     call exmarksbrowser#register_hotkey( 2  , 1, '<leader><ESC>'   , ":EXmbClose<CR>"                         , 'Close window.' )
 endif
-call exmarksbrowser#register_hotkey( 3  , 1, '<Space>'         , ":call exmarksbrowser#toggle_zoom()<CR>"           , 'Zoom in/out project window.' )
+" call exmarksbrowser#register_hotkey( 3  , 1, '<Space>'         , ":call exmarksbrowser#toggle_zoom()<CR>"           , 'Zoom in/out project window.' )
+call exmarksbrowser#register_hotkey( 3  , 1, 'z'               , ":call exmarksbrowser#toggle_zoom()<CR>"           , 'Zoom in/out project window.' )
 call exmarksbrowser#register_hotkey( 4  , 1, '<CR>'            , ":call exmarksbrowser#confirm_select('')<CR>"      , 'Go to the select result.' )
 call exmarksbrowser#register_hotkey( 5  , 1, '<2-LeftMouse>'   , ":call exmarksbrowser#confirm_select('')<CR>"      , 'Go to the select result.' )
+call exmarksbrowser#register_hotkey( 6  , 1, '<S-CR>'          , ":call exmarksbrowser#confirm_select('shift')<CR>" , 'Go to the select result in split window.' )
+call exmarksbrowser#register_hotkey( 7  , 1, '<S-2-LeftMouse>' , ":call exmarksbrowser#confirm_select('shift')<CR>" , 'Go to the select result in split window.' )
 "}}}
 
 call ex#register_plugin( 'exmarksbrowser', { 'actions': ['autoclose'] } )
