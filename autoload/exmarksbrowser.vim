@@ -100,7 +100,7 @@ function exmarksbrowser#open_window()
         if s:confirm_at != -1
             call ex#hl#confirm_line(s:confirm_at)
         endif
-        call g:exmb_update_selectwindow ()
+        call g:Exmb_update_selectwindow ()
     else
         exe winnr . 'wincmd w'
     endif
@@ -179,7 +179,7 @@ function exmarksbrowser#confirm_select(modifier)
     " cause different files have different marks (those lower case marks), so we need to refresh mark browser
     if need_refresh_marks
         call ex#window#goto_plugin_window()
-        call g:exmb_update_selectwindow ()
+        call g:Exmb_update_selectwindow ()
     endif
 
     " let winnum = bufwinnr(s:title)
@@ -200,7 +200,7 @@ let s:exmb_cursor_idx = 1
 let s:exmb_all_marks = "abcdefghijklmnopqrstuvwxyz.'`^<>\""
 "let s:exmb_all_marks = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.'`^<>\""
 
-function g:exmb_update_selectwindow() " <<<
+function g:Exmb_update_selectwindow() " <<<
     " we alwasy clear confirmed highlight, every time we open the browse window
     call ex#hl#clear_confirm()
 
